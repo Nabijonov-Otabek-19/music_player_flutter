@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_player_simp/features/domain/usecases/get_musiclist_usecase.dart';
 import 'package:music_player_simp/features/presentation/pages/home/bloc/home_bloc.dart';
 import 'package:music_player_simp/features/presentation/pages/play/play_page.dart';
+import 'package:music_player_simp/features/presentation/pages/playlist/playlist_page.dart';
+import 'package:music_player_simp/features/presentation/widgets/music_item.dart';
 
 import '../../../../core/network/network_call_handle.dart';
 import '../../../../injection_container.dart';
@@ -28,6 +30,19 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Home"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const PlayListPage(),
+                ),
+              );
+            },
+            icon: const Icon(Icons.favorite, color: Colors.pink),
+          )
+        ],
       ),
       body: BlocProvider(
         create: (context) => _bloc,
@@ -51,7 +66,8 @@ class _HomePageState extends State<HomePage> {
                 padding: EdgeInsets.zero,
                 itemCount: state.musicList.length,
                 itemBuilder: (context, index) {
-                  return GestureDetector(
+                  return widgetMusicItem(
+                    musicModel: state.musicList[index],
                     onTap: () {
                       Navigator.push(
                         context,
@@ -61,45 +77,6 @@ class _HomePageState extends State<HomePage> {
                         ),
                       );
                     },
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                left: 8, bottom: 8, right: 8, top: 4),
-                            child: SizedBox(
-                              child: FadeInImage.assetNetwork(
-                                height: 60,
-                                width: 60,
-                                placeholder:
-                                "assets/images/musicplaceholder.png",
-                                image: state.musicList[index].image.toString(),
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Flexible(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                state.musicList[index].title.toString(),
-                                style: const TextStyle(
-                                    color: Colors.white, fontSize: 18),
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                state.musicList[index].artist.toString(),
-                                style: const TextStyle(
-                                    color: Colors.grey, fontSize: 12),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
                   );
                 },
               );
