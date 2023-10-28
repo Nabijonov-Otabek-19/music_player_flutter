@@ -30,7 +30,8 @@ class MusicModel extends Equatable {
   });
 
   @override
-  List<Object?> get props => [
+  List<Object?> get props =>
+      [
         id,
         title,
         album,
@@ -72,35 +73,19 @@ class MusicModel extends Equatable {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'title': title,
-      'album': album,
-      'artist': artist,
-      'genre': genre,
-      'source': source,
-      'image': image,
-      'trackNumber': trackNumber,
-      'totalTrackCount': totalTrackCount,
-      'duration': duration,
-      'site': site,
-    };
-  }
-
   factory MusicModel.fromJson(Map<String, dynamic> json) {
     return MusicModel(
-      id: json['id'] as String?,
-      title: json['title'] as String?,
-      album: json['album'] as String?,
-      artist: json['artist'] as String?,
-      genre: json['genre'] as String?,
-      source: json['source'] as String?,
-      image: json['image'] as String?,
-      trackNumber: json['trackNumber'] as int?,
-      totalTrackCount: json['totalTrackCount'] as int?,
-      duration: json['duration'] as int?,
-      site: json['site'] as String?,
+      id: json['id'] ?? "",
+      title: json['title'] ?? "",
+      album: json['album'] ?? "",
+      artist: json['artist'] ?? "",
+      genre: json['genre'] ?? "",
+      source: json['source'] ?? "",
+      image: json['image'] ?? "",
+      trackNumber: json['trackNumber'] ?? 0,
+      totalTrackCount: json['totalTrackCount'] ?? 0,
+      duration: json['duration'] ?? 0,
+      site: json['site'] ?? "",
     );
   }
 }
