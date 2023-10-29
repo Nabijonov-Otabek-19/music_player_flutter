@@ -8,6 +8,7 @@ import 'package:music_player_simp/features/presentation/widgets/music_item.dart'
 
 import '../../../../core/network/network_call_handle.dart';
 import '../../../../injection_container.dart';
+import '../play/play_page2.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -73,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              PlayPage(musicModel: state.musicList[index]),
+                          const MainScreen(),
                         ),
                       );
                     },

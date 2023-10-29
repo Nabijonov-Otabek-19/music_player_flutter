@@ -1,9 +1,26 @@
+import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:music_player_simp/features/presentation/pages/home/home_page.dart';
 import 'package:music_player_simp/injection_container.dart';
 
+import 'core/util/music_service.dart';
+
+// You might want to provide this using dependency injection rather than a
+// global variable.
+late AudioHandler audioHandler;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  audioHandler = await AudioService.init(
+    builder: () => AudioPlayerHandler(),
+    config: const AudioServiceConfig(
+      androidNotificationChannelId: 'com.ryanheise.myapp.channel.audio',
+      androidNotificationChannelName: 'Audio playback',
+      androidNotificationOngoing: true,
+    ),
+  );
+
   // DI setUp
   await init();
   runApp(const MyApp());
